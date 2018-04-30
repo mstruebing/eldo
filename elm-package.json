@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "Trello Like Todo-List written in Elm",
-    "repository": "git@github.com:mstruebing/eldo.git",
+    "repository": "https://github.com/mstruebing/eldo.git",
     "license": "BSD3",
     "source-directories": [
         "src"
