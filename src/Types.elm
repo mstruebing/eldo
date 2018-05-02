@@ -3,9 +3,25 @@ module Types exposing (..)
 
 initialModel : Model
 initialModel =
-    { todoLists = []
+    { todoLists = initialLists
     , autosave = True
     }
+
+
+initialLists =
+    [ { name = "Todo"
+      , position = 0
+      , items = []
+      }
+    , { name = "Doing"
+      , position = 1
+      , items = []
+      }
+    , { name = "Done"
+      , position = 2
+      , items = []
+      }
+    ]
 
 
 type alias Model =
@@ -27,3 +43,4 @@ type alias Todo =
 
 type Msg
     = NoOp
+    | AddTodo Int String
