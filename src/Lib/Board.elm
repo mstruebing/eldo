@@ -14,11 +14,6 @@ type alias Position =
     Int
 
 
-
--- type Board
---     = Board (Dict Position TodoList)
-
-
 type alias Board =
     Dict Position TodoList
 
