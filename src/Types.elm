@@ -1,5 +1,8 @@
 module Types exposing (..)
 
+---- ELM ----
+---- OWN ----
+
 import Lib.Board exposing (Board, empty)
 
 
