@@ -1,0 +1,11 @@
+sudo: false
+
+notifications:
+  email: false
+
+language: node_js
+
+script:
+  - npm install -g create-elm-app
+  - make build
+  - make test
