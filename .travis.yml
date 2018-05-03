@@ -5,7 +5,16 @@ notifications:
 
 language: node_js
 
+cache:
+  yarn: true
+  directories:
+    - ./elm-stuff
+    - ./tests/elm-stuff
+
+before_script:
+  - yarn global add create-elm-app
+  - make install
+
 script:
-  - npm install -g create-elm-app
   - make build
   - make test
