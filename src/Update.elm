@@ -10,9 +10,6 @@ import Lib.Board exposing (addList, removeList)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NoOp ->
-            ( model, Cmd.none )
-
         AddTodoList position todoList ->
             ( { model | board = addList todoList position model.board }, Cmd.none )
 

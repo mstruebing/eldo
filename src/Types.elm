@@ -21,6 +21,5 @@ type alias Model =
 
 
 type Msg
-    = NoOp
-    | AddTodoList Position TodoList
+    = AddTodoList Position TodoList
     | RemoveTodoList Position
