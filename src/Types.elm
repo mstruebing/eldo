@@ -3,7 +3,8 @@ module Types exposing (..)
 ---- ELM ----
 ---- OWN ----
 
-import Lib.Board exposing (Board, empty)
+import Lib.Board exposing (Board, Position, empty)
+import Lib.TodoList exposing (TodoList)
 
 
 initialModel : Model
@@ -20,4 +21,6 @@ type alias Model =
 
 
 type Msg
-    = NoOp
+    = AddTodoList Position TodoList
+    | RemoveTodoList Position
+    | ChangeTodoListPosition Position Position
