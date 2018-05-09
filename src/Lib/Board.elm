@@ -14,20 +14,25 @@ type alias Position =
     Int
 
 
-type alias Board =
-    Dict Position TodoList
+type Board
+    = Board (Dict Position TodoList)
 
 
 empty : Board
 empty =
-    Dict.empty
+    Dict.empty |> Board
+
+
+size : Board -> Int
+size (Board dict) =
+    Dict.size dict
 
 
 addList : TodoList -> Position -> Board -> Board
-addList todoList position board =
-    Dict.insert position todoList board
+addList todoList position (Board dict) =
+    Dict.insert position todoList dict |> Board
 
 
 removeList : Position -> Board -> Board
-removeList position board =
-    Dict.remove position board
+removeList position (Board dict) =
+    Dict.remove position dict |> Board

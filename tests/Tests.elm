@@ -15,9 +15,10 @@ import Dict exposing (Dict)
 ---- OWN ----
 
 import Lib.TodoList exposing (createTodoList, addTodo, removeTodo, changeName)
-import Lib.Board exposing (empty, addList, removeList)
+import Lib.Board exposing (..)
 
 
+-- import Lib.Board exposing (empty, addList, removeList)
 -- Check out http://package.elm-lang.org/packages/elm-community/elm-test/latest to learn more about testing in Elm!
 
 
@@ -65,22 +66,5 @@ all =
                     Expect.equal
                         (changeName { name = "stuff", todos = [ "myTodo" ] } randomString)
                         { name = randomString, todos = [ "myTodo" ] }
-            ]
-        , describe "Lib.Board"
-            [ test "empty" <|
-                \_ ->
-                    Expect.equal
-                        empty
-                        Dict.empty
-            , test "addList single" <|
-                \_ ->
-                    Expect.equal
-                        (addList { name = "list", todos = [] } 0 empty)
-                        (Dict.fromList [ ( 0, { name = "list", todos = [] } ) ])
-            , test "addList multiple" <|
-                \_ ->
-                    Expect.equal
-                        (addList { name = "first", todos = [] } 1 (addList { name = "zero", todos = [] } 0 empty))
-                        (Dict.fromList [ ( 0, { name = "zero", todos = [] } ), ( 1, { name = "first", todos = [] } ) ])
             ]
         ]
