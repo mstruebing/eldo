@@ -23,3 +23,4 @@ type alias Model =
 type Msg
     = AddTodoList Position TodoList
     | RemoveTodoList Position
+    | ChangeTodoListPosition Position Position

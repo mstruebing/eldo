@@ -4,7 +4,7 @@ module Update exposing (update)
 ---- OWN ----
 
 import Types exposing (Model, Msg(..))
-import Lib.Board exposing (addList, removeList)
+import Lib.Board exposing (addList, removeList, changeTodoListPosition)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -15,3 +15,6 @@ update msg model =
 
         RemoveTodoList position ->
             ( { model | board = removeList position model.board }, Cmd.none )
+
+        ChangeTodoListPosition oldPosition newPosition ->
+            ( { model | board = changeTodoListPosition oldPosition newPosition model.board }, Cmd.none )

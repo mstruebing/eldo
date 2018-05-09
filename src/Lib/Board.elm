@@ -36,3 +36,12 @@ addList todoList position (Board dict) =
 removeList : Position -> Board -> Board
 removeList position (Board dict) =
     Dict.remove position dict |> Board
+
+
+
+-- TODO
+
+
+changeTodoListPosition : Position -> Position -> Board -> Board
+changeTodoListPosition oldPosition newPosition (Board dict) =
+    dict |> Board
