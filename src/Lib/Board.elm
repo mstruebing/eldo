@@ -38,10 +38,18 @@ removeList position (Board dict) =
     Dict.remove position dict |> Board
 
 
+unwrapBoard : Board -> Dict Position TodoList
+unwrapBoard (Board board) =
+    board
+
+
 
 -- TODO
 
 
 changeTodoListPosition : Position -> Position -> Board -> Board
 changeTodoListPosition oldPosition newPosition (Board dict) =
-    dict |> Board
+    if oldPosition < newPosition then
+        dict |> Board
+    else
+        dict |> Board
