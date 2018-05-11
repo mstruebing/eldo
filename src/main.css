@@ -2,3 +2,25 @@ body {
   margin: 0;
   text-align: center;
 }
+
+.todoApp {
+
+}
+
+.todoLists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.todoList {
+
+}
+
+.todoList__head {
+
+}
+
+.todoList__body {
+
+}
