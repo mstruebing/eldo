@@ -33,6 +33,7 @@ view model =
                             [ printTodoListName todoList
                             , printTodoListTodos todoList
                             , printTodoListAddTodo todoList model.newTodoCaption position
+                            , printRemoveTodoList position model.board
                             ]
                     )
             )
@@ -61,7 +62,7 @@ printTodoListName todoList =
 
 printTodoListTodos : TodoList -> Html Msg
 printTodoListTodos todoList =
-    List.map (\todo -> text todo) todoList.todos
+    List.map (\todo -> div [ class "todoList__body__todo" ] [ text todo ]) todoList.todos
         |> div [ class "todoList__body" ]
 
 
@@ -78,3 +79,10 @@ printTodoListAddTodo todoList todo position =
             ]
             [ text "ADD" ]
         ]
+
+
+printRemoveTodoList : Position -> Board -> Html Msg
+printRemoveTodoList position board =
+    button
+        [ onClick <| RemoveTodoList position ]
+        [ text "Remove" ]
