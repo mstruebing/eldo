@@ -13,6 +13,7 @@ import Dict exposing (Dict)
 import Types exposing (Model, Msg(..))
 import Lib.Board exposing (size, unwrapBoard, Position, Board(..))
 import Lib.TodoList exposing (TodoList, Todo, createTodoList)
+import Utils exposing (maybeHelper)
 
 
 view : Model -> Html Msg
@@ -72,12 +73,7 @@ printTodoListAddTodo todoList maybeTodo position =
         [ input
             [ ChangeNewTodoCaption position
                 |> onInput
-            , case maybeTodo of
-                Just todo ->
-                    value todo
-
-                Nothing ->
-                    value ""
+            , maybeHelper value maybeTodo ""
             ]
             []
         , button
