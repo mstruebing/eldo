@@ -1,6 +1,10 @@
 module Update exposing (update)
 
 ---- ELM ----
+
+import Dict exposing (Dict)
+
+
 ---- OWN ----
 
 import Types exposing (Model, Msg(..))
@@ -23,8 +27,13 @@ update msg model =
         ChangeNewTodoListName todoListName ->
             ( { model | newTodoListName = todoListName }, Cmd.none )
 
-        ChangeNewTodoCaption todo ->
-            ( { model | newTodoCaption = todo }, Cmd.none )
+        ChangeNewTodoCaption position todo ->
+            ( { model | newTodos = Dict.insert position todo model.newTodos }, Cmd.none )
 
-        AddTodo todoList todo position ->
-            ( { model | board = addList (addTodo todoList todo) position model.board, newTodoCaption = "" }, Cmd.none )
+        AddTodo todoList maybeTodo position ->
+            case maybeTodo of
+                Just todo ->
+                    ( { model | board = addList (addTodo todoList todo) position model.board, newTodos = Dict.remove position model.newTodos }, Cmd.none )
+
+                Nothing ->
+                    ( model, Cmd.none )

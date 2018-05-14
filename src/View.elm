@@ -11,18 +11,14 @@ import Dict exposing (Dict)
 ---- OWN ----
 
 import Types exposing (Model, Msg(..))
-import Lib.Board exposing (Board(..))
-import Lib.Board exposing (size, unwrapBoard, Position)
-import Lib.TodoList exposing (TodoList, Todo)
+import Lib.Board exposing (size, unwrapBoard, Position, Board(..))
+import Lib.TodoList exposing (TodoList, Todo, createTodoList)
 
 
 view : Model -> Html Msg
 view model =
     div [ class "todoApp" ]
         [ printNewTodoListControl model
-        , div
-            [ onClick <| RemoveTodoList (size model.board - 1) ]
-            [ text "Remove" ]
         , div
             [ class "todoLists" ]
             (unwrapBoard model.board
@@ -32,7 +28,7 @@ view model =
                         div [ class "todoList" ]
                             [ printTodoListName todoList
                             , printTodoListTodos todoList
-                            , printTodoListAddTodo todoList model.newTodoCaption position
+                            , printTodoListAddTodo todoList (Dict.get position model.newTodos) position
                             , printRemoveTodoList position model.board
                             ]
                     )
@@ -44,7 +40,7 @@ printNewTodoListControl : Model -> Html Msg
 printNewTodoListControl model =
     form
         [ class "todoList__new"
-        , AddTodoList (size model.board) { name = model.newTodoListName, todos = [] }
+        , AddTodoList (size model.board) (createTodoList model.newTodoListName)
             |> onSubmit
         ]
         [ input [ onInput ChangeNewTodoListName, value model.newTodoListName ] []
@@ -66,14 +62,24 @@ printTodoListTodos todoList =
         |> div [ class "todoList__body" ]
 
 
-printTodoListAddTodo : TodoList -> Todo -> Position -> Html Msg
-printTodoListAddTodo todoList todo position =
+printTodoListAddTodo : TodoList -> Maybe Todo -> Position -> Html Msg
+printTodoListAddTodo todoList maybeTodo position =
     form
         [ class "todoList__todo__new"
-        , AddTodo todoList todo position
+        , AddTodo todoList maybeTodo position
             |> onSubmit
         ]
-        [ input [ onInput ChangeNewTodoCaption, value todo ] []
+        [ input
+            [ ChangeNewTodoCaption position
+                |> onInput
+            , case maybeTodo of
+                Just todo ->
+                    value todo
+
+                Nothing ->
+                    value ""
+            ]
+            []
         , button
             [ type_ "submit"
             ]

@@ -5,6 +5,7 @@ module Types exposing (..)
 
 import Lib.Board exposing (Board, Position, empty)
 import Lib.TodoList exposing (TodoList, Todo)
+import Dict exposing (Dict)
 
 
 initialModel : Model
@@ -12,7 +13,7 @@ initialModel =
     { board = empty
     , autosave = True
     , newTodoListName = ""
-    , newTodoCaption = ""
+    , newTodos = Dict.empty
     }
 
 
@@ -20,7 +21,7 @@ type alias Model =
     { board : Board
     , autosave : Bool
     , newTodoListName : String
-    , newTodoCaption : String
+    , newTodos : Dict Position String
     }
 
 
@@ -29,5 +30,5 @@ type Msg
     | RemoveTodoList Position
     | ChangeTodoListPosition Position Position
     | ChangeNewTodoListName String
-    | AddTodo TodoList Todo Position
-    | ChangeNewTodoCaption String
+    | AddTodo TodoList (Maybe Todo) Position
+    | ChangeNewTodoCaption Position String
