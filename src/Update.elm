@@ -5,6 +5,7 @@ module Update exposing (update)
 
 import Types exposing (Model, Msg(..))
 import Lib.Board exposing (addList, removeList, changeTodoListPosition)
+import Lib.TodoList exposing (addTodo)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -21,3 +22,9 @@ update msg model =
 
         ChangeNewTodoListName todoListName ->
             ( { model | newTodoListName = todoListName }, Cmd.none )
+
+        ChangeNewTodoCaption todo ->
+            ( { model | newTodoCaption = todo }, Cmd.none )
+
+        AddTodo todoList todo position ->
+            ( { model | board = addList (addTodo todoList todo) position model.board, newTodoCaption = "" }, Cmd.none )

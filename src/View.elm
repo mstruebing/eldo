@@ -12,8 +12,8 @@ import Dict exposing (Dict)
 
 import Types exposing (Model, Msg(..))
 import Lib.Board exposing (Board(..))
-import Lib.Board exposing (size, unwrapBoard)
-import Lib.TodoList exposing (TodoList)
+import Lib.Board exposing (size, unwrapBoard, Position)
+import Lib.TodoList exposing (TodoList, Todo)
 
 
 view : Model -> Html Msg
@@ -32,6 +32,7 @@ view model =
                         div [ class "todoList" ]
                             [ printTodoListName todoList
                             , printTodoListTodos todoList
+                            , printTodoListAddTodo todoList model.newTodoCaption position
                             ]
                     )
             )
@@ -42,7 +43,7 @@ printNewTodoListControl : Model -> Html Msg
 printNewTodoListControl model =
     form
         [ class "todoList__new"
-        , AddTodoList (size model.board) { name = model.newTodoListName, todos = [ "wha", "whe" ] }
+        , AddTodoList (size model.board) { name = model.newTodoListName, todos = [] }
             |> onSubmit
         ]
         [ input [ onInput ChangeNewTodoListName, value model.newTodoListName ] []
@@ -62,3 +63,18 @@ printTodoListTodos : TodoList -> Html Msg
 printTodoListTodos todoList =
     List.map (\todo -> text todo) todoList.todos
         |> div [ class "todoList__body" ]
+
+
+printTodoListAddTodo : TodoList -> Todo -> Position -> Html Msg
+printTodoListAddTodo todoList todo position =
+    form
+        [ class "todoList__todo__new"
+        , AddTodo todoList todo position
+            |> onSubmit
+        ]
+        [ input [ onInput ChangeNewTodoCaption, value todo ] []
+        , button
+            [ type_ "submit"
+            ]
+            [ text "ADD" ]
+        ]
