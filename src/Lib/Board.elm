@@ -7,7 +7,7 @@ import Dict exposing (Dict)
 
 ---- OWN ----
 
-import Lib.TodoList exposing (TodoList)
+import Lib.TodoList exposing (TodoList, createTodoList)
 
 
 type alias Position =
@@ -16,6 +16,15 @@ type alias Position =
 
 type Board
     = Board (Dict Position TodoList)
+
+
+sampleBoard : Board
+sampleBoard =
+    Dict.empty
+        |> Board
+        |> addList (createTodoList "todo") 0
+        |> addList (createTodoList "doing") 1
+        |> addList (createTodoList "done") 2
 
 
 empty : Board

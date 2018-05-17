@@ -3,14 +3,14 @@ module Types exposing (..)
 ---- ELM ----
 ---- OWN ----
 
-import Lib.Board exposing (Board, Position, empty)
+import Lib.Board exposing (Board, Position, sampleBoard)
 import Lib.TodoList exposing (TodoList, Todo)
 import Dict exposing (Dict)
 
 
 initialModel : Model
 initialModel =
-    { board = empty
+    { board = sampleBoard
     , autosave = True
     , newTodoListName = ""
     , newTodos = Dict.empty
@@ -33,3 +33,5 @@ type Msg
     | AddTodo TodoList (Maybe Todo) Position
     | RemoveTodo TodoList Todo Position
     | ChangeNewTodoCaption Position String
+    | SaveBoard
+    | DeleteBoard

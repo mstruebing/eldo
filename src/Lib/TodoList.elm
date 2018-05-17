@@ -20,7 +20,10 @@ createTodoList name =
 
 addTodo : TodoList -> Todo -> TodoList
 addTodo todoList todo =
-    { todoList | todos = List.append todoList.todos [ todo ] }
+    if not <| List.member todo todoList.todos then
+        { todoList | todos = List.append todoList.todos [ todo ] }
+    else
+        todoList
 
 
 removeTodo : TodoList -> Todo -> TodoList
