@@ -31,4 +31,5 @@ type Msg
     | ChangeTodoListPosition Position Position
     | ChangeNewTodoListName String
     | AddTodo TodoList (Maybe Todo) Position
+    | RemoveTodo TodoList Todo Position
     | ChangeNewTodoCaption Position String
