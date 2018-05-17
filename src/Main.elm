@@ -2,8 +2,8 @@ module Main exposing (..)
 
 ---- ELM ----
 
-import Html exposing (Html, text, div, h1, img)
-import Html.Attributes exposing (src)
+import Html exposing (Html)
+import Dict exposing (Dict)
 
 
 ---- OWN ----
@@ -11,18 +11,29 @@ import Html.Attributes exposing (src)
 import Types exposing (initialModel, Model, Msg(..))
 import Update exposing (update)
 import View exposing (view)
+import Lib.TodoList exposing (TodoList)
+import Lib.Board exposing (Board(..))
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( initialModel, Cmd.none )
-
-
-main : Program Never Model Msg
+main : Program (Maybe (List ( Int, TodoList ))) Model Msg
 main =
-    Html.program
+    Html.programWithFlags
         { view = view
         , init = init
         , update = update
         , subscriptions = always Sub.none
         }
+
+
+init : Maybe (List ( Int, TodoList )) -> ( Model, Cmd Msg )
+init maybeBoard =
+    case maybeBoard of
+        Just jsonBoard ->
+            ( { initialModel | board = Board <| Dict.fromList jsonBoard }
+            , Cmd.none
+            )
+
+        Nothing ->
+            ( initialModel
+            , Cmd.none
+            )
