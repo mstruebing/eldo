@@ -1,6 +1,9 @@
-port module Ports exposing (saveBoardToLocalStorage)
+port module Ports exposing (saveBoardToLocalStorage, deleteBoardFromLocalStorage)
 
 import Lib.TodoList exposing (TodoList)
 
 
-port saveBoardToLocalStorage : List ( Int, TodoList ) -> Cmd msg
+port saveBoardToLocalStorage : ( String, List ( Int, TodoList ) ) -> Cmd msg
+
+
+port deleteBoardFromLocalStorage : String -> Cmd msg

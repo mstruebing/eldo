@@ -8,9 +8,9 @@ import Dict exposing (Dict)
 ---- OWN ----
 
 import Types exposing (Model, Msg(..))
-import Lib.Board exposing (addList, removeList, changeTodoListPosition, unwrapBoard, Board)
+import Lib.Board exposing (addList, removeList, changeTodoListPosition, unwrapBoard, Board, empty)
 import Lib.TodoList exposing (addTodo, removeTodo)
-import Ports exposing (saveBoardToLocalStorage)
+import Ports exposing (saveBoardToLocalStorage, deleteBoardFromLocalStorage)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -75,9 +75,17 @@ update msg model =
             , Cmd.batch [ saveBoard model.board ]
             )
 
+        DeleteBoard ->
+            ( { model | board = empty }
+            , Cmd.batch [ deleteBoardFromLocalStorage localStorageKey ]
+            )
+
 
 saveBoard : Board -> Cmd msg
 saveBoard board =
-    unwrapBoard board
-        |> Dict.toList
-        |> saveBoardToLocalStorage
+    saveBoardToLocalStorage ( localStorageKey, unwrapBoard board |> Dict.toList )
+
+
+localStorageKey : String
+localStorageKey =
+    "board"

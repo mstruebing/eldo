@@ -19,7 +19,8 @@ import Utils exposing (maybeHelper)
 view : Model -> Html Msg
 view model =
     div [ class "todoApp" ]
-        [ printNewTodoListControl model
+        [ printControls
+        , printNewTodoListControl model
         , div
             [ class "todoLists" ]
             (unwrapBoard model.board
@@ -34,6 +35,14 @@ view model =
                             ]
                     )
             )
+        ]
+
+
+printControls : Html Msg
+printControls =
+    div []
+        [ button [ onClick SaveBoard ] [ text "SAVE" ]
+        , button [ onClick DeleteBoard ] [ text "DELETE" ]
         ]
 
 
