@@ -41,6 +41,11 @@ all =
                     Expect.equal
                         (addTodo { name = "list", todos = [ "one" ] } randomString)
                         { name = "list", todos = [ "one", randomString ] }
+            , fuzz string "addTodo double" <|
+                \randomString ->
+                    Expect.equal
+                        (addTodo (addTodo { name = "list", todos = [ "one" ] } randomString) randomString)
+                        { name = "list", todos = [ "one", randomString ] }
             , fuzz string "removeTodo single" <|
                 \randomString ->
                     Expect.equal
