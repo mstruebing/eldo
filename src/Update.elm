@@ -9,7 +9,7 @@ import Dict exposing (Dict)
 
 import Types exposing (Model, Msg(..))
 import Lib.Board exposing (addList, removeList, changeTodoListPosition)
-import Lib.TodoList exposing (addTodo)
+import Lib.TodoList exposing (addTodo, removeTodo)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -37,3 +37,6 @@ update msg model =
 
                 Nothing ->
                     ( model, Cmd.none )
+
+        RemoveTodo todoList todo position ->
+            ( { model | board = addList (removeTodo todoList todo) position model.board }, Cmd.none )

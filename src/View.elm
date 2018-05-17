@@ -28,7 +28,7 @@ view model =
                     (\( position, todoList ) ->
                         div [ class "todoList" ]
                             [ printTodoListName todoList
-                            , printTodoListTodos todoList
+                            , printTodoListTodos todoList position
                             , printTodoListAddTodo todoList (Dict.get position model.newTodos) position
                             , printRemoveTodoList position model.board
                             ]
@@ -57,9 +57,16 @@ printTodoListName todoList =
     div [ class "todoList__head" ] [ text todoList.name ]
 
 
-printTodoListTodos : TodoList -> Html Msg
-printTodoListTodos todoList =
-    List.map (\todo -> div [ class "todoList__body__todo" ] [ text todo ]) todoList.todos
+printTodoListTodos : TodoList -> Position -> Html Msg
+printTodoListTodos todoList position =
+    List.map
+        (\todo ->
+            div [ class "todoList__body__todo" ]
+                [ text todo
+                , button [ onClick <| RemoveTodo todoList todo position ] [ text "REMOVE" ]
+                ]
+        )
+        todoList.todos
         |> div [ class "todoList__body" ]
 
 
